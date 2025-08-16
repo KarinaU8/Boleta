@@ -1,3 +1,34 @@
-{
-	"folders": []
+public class Boleta {
+    
+    public static void main(String[] args) {
+        
+        String[] codigos = {"7754128852147", "7752563210489", "7796525415"};
+       
+        String[] productos = {"DETERGENTE ULTRA", "JAN.PIZZA", "LECHE EN CAJA"};
+        int[] cantidades = {6, 2, 12};
+        double[] precios = {3.25, 12.90, 30.50};
+        double[] montos = new double[codigos.length];
+        double totalGravada = 0;
+
+        for (int i = 0; i < codigos.length; i++) {
+            montos[i] = cantidades[i] * precios[i];
+            totalGravada += montos[i];
+        }
+        double igv = totalGravada * 0.18;
+        double total = totalGravada + igv;
+
+        StringBuilder boleta = new StringBuilder();
+        boleta.append("TIENDA ABC\n");
+        boleta.append("RUC 21521458563\n");
+        boleta.append("Chiclayo-Peru\n\n");
+        boleta.append("CÁDEGO: ROSA\n");
+        for (int i = 0; i < codigos.length; i++) {
+            boleta.append(String.format("%s %s\n%5d X %7.2f %9.2f\n", codigos[i], productos[i], cantidades[i], precios[i], montos[i]));
+        }
+        boleta.append(String.format("\nOP. GRAVADA: %.1f\n", totalGravada));
+        boleta.append(String.format("I.G.V.: %.3f\n", igv));
+        boleta.append(String.format("IMPORTE TOTAL: %.3f\n", total));
+        boleta.append("CLIENTE: CARLOS");
+        System.out.println(boleta);
+    }
 }
